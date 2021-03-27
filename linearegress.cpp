@@ -9,7 +9,20 @@ using std::endl;
 float X[MAX];
 float Y[MAX];
 
-float itungMeanX(int n){
+class Linear_regression{
+    private : 
+        float itungMeanX(int n);
+        float itungMeanY(int n);
+        float cariR_kuadrat(float meanY, float a, float b, int n);
+
+    public :
+
+        void itungLinearRegression(int nX, int nY);
+        void tampilkanData_X(int nX);
+        void tampilkanData_Y(int nY);
+
+};
+float Linear_regression::itungMeanX(int n){
     float jumlahData = 0;
     
     for(int i = 0; i < n; i++ ){
@@ -20,7 +33,7 @@ float itungMeanX(int n){
 }
 
 
-float itungMeanY(int n){
+float Linear_regression::itungMeanY(int n){
     float jumlahData = 0;
     
     for(int i = 0; i < n; i++ ){
@@ -30,7 +43,7 @@ float itungMeanY(int n){
     return jumlahData / n;
 }
 //rumus linear regression -> Y = a + bX 
-float cariR_kuadrat(float meanY, float a, float b, int n){
+float Linear_regression::cariR_kuadrat(float meanY, float a, float b, int n){
     //menyimpan expect value dari masing masing data
     float ev[MAX];
     //mencari expected value/ nilai yang diharapkan
@@ -51,7 +64,7 @@ float cariR_kuadrat(float meanY, float a, float b, int n){
     return jumlahDevEv / jumlahDevY;
 }
 
-void itungLinearRegression(int nX, int nY){
+void  Linear_regression::itungLinearRegression(int nX, int nY){
     
     float meanX = itungMeanX(nX);
     float meanY = itungMeanY(nY);
@@ -97,7 +110,7 @@ void itungLinearRegression(int nX, int nY){
 
 }
 
-void tampilkanData_X(int nX){
+void Linear_regression::tampilkanData_X(int nX){
     cout << "Data X yang anda masukan : ";
     for(int i = 0; i < nX; i++){
         cout << X[i] << " ";
@@ -106,7 +119,7 @@ void tampilkanData_X(int nX){
 }
 
 
-void tampilkanData_Y(int nY){
+void Linear_regression::tampilkanData_Y(int nY){
     cout << "Data Y yang anda masukan : ";
     for(int i = 0; i < nY; i++){
         cout << Y[i] << " ";
@@ -118,7 +131,7 @@ void tampilkanData_Y(int nY){
 int main(){
     cout << "Linear Regression Program" << endl;
     
-
+    Linear_regression linear_regress;
     int nX, nY;
 
     cout << "Berapa data X yang ingin dimasukan? " ;
@@ -126,18 +139,19 @@ int main(){
     cout << "Berapa data Y yang ingin dimasukan? ";
     cin >> nY;
 
+    
     for(int i = 0; i < nX; i++){
         cout << "Masukan nilai X : ";
         cin >> X[i];
     }
-    tampilkanData_X(nX);
+    linear_regress.tampilkanData_X(nX);
     for(int i = 0; i < nY; i++){
         cout << "Masukan nilai Y : ";
         cin >> Y[i];
     }
-    tampilkanData_Y(nY);
+    linear_regress.tampilkanData_Y(nY);
     
-    itungLinearRegression(nX,nY);
+    linear_regress.itungLinearRegression(nX,nY);
 
     char is_lanjut;
     cout << "Apakah masih ingin menggunakan kembali program ini? (y/n)  ";

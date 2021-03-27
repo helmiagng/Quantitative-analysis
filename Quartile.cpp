@@ -8,8 +8,30 @@ using std::endl;
 #define MAX 100
 int data[MAX];
 
-void printInput(int n){
+class Sorting_data{
+    private : 
+        int getMax(int n);
+        void sortingPerDigit(int n, int exp);
+        bool cekIsGenap(int n);
+    public :
+        void inputData(int n); 
+        void printInput(int n);
+        void radixSort(int n);
+        void itungQuartile(int n);
+};
+
+void Sorting_data::inputData(int n){
     
+    for(int i = 0; i < n; i++){
+        cout << "Masukan data : ";
+        cin >> data[i];
+        
+    }
+    cout << "\n";
+}
+
+void Sorting_data::printInput(int n){
+    system("cls");
     cout << "Data yang anda masukan : ";
     for(int i = 0; i < n; i++){
         cout << data[i] << " ";
@@ -17,7 +39,7 @@ void printInput(int n){
     cout << "\n";
 }
 
-int getMax(int n){
+int Sorting_data::getMax(int n){
     int maxVal = data[0];
     for(int i = 0; i < n; i++){
         if(data[i] > maxVal) maxVal = data[i];
@@ -25,7 +47,7 @@ int getMax(int n){
     return maxVal;
 }
 
-void sortingData(int n, int exp){
+void Sorting_data::sortingPerDigit(int n, int exp){
     int output[n];
     //menginitilize nilai 0 pada semua anggota array count
     int count[MAX] = { 0 }; 
@@ -51,21 +73,21 @@ void sortingData(int n, int exp){
 }
 
 //mensorting data dari terkecil ke terbesar enggunakan radix sort
-void radixSort(int n){
+void Sorting_data::radixSort(int n){
     int maxVal = getMax(n);
 
     for(int exp = 1; maxVal / exp > 0; exp *= 10){
-      sortingData(n, exp);  
+      sortingPerDigit(n, exp);  
     }
 }
 
-bool cekIsGenap(int n){
+bool Sorting_data::cekIsGenap(int n){
     //mengembalikan jumlah data yang berjumlah ganjil
     if(n % 2 != 0) return false;
     return true;
 }
 
-void itungQuartile(int n){
+void Sorting_data::itungQuartile(int n){
     bool isGenap = cekIsGenap(n);
     int m1 = 0.25 * (n+1);
     int m2 = 0.5 * (n+1);
@@ -100,26 +122,23 @@ void itungQuartile(int n){
 }
 
 int main(){
-    cout << "Menghitung kuartil pada sebuah kumpulan data" << endl;
+    Sorting_data sortData;
+    cout << "Menghitung kuartil pada sebuah kumpulan data tunggal" << endl;
     int n;
-    
-    cout << "Berapa data yang ingin anda masukan? ";
-    cin >> n;
+    char is_itung;
+    do{
+        system("cls");
+        cout << "Berapa data yang ingin anda masukan? ";
+        cin >> n;
+        sortData.inputData(n);
+        sortData.printInput(n);
+        //mengsorting data dari kecil ke yang terbesar menggunakan radix sort
+        sortData.radixSort(n);
+        sortData.itungQuartile(n);
+        cout << "Masih mau ngitung? (y/n) ";
+        cin >> is_itung;
+    }while(is_itung == 'y'|is_itung == 'Y');
 
-    for(int i = 0; i < n; i++){
-        cout << "Masukan data : ";
-        cin >> data[i];
-        
-    }
-    cout << "\n";
-    printInput(n);
-    //mengsorting data dari kecil ke yang terbesar menggunakan radix sort
-    radixSort(n);
-    cout << "setelah data yang diinput disorting " << endl ;
-    printInput(n);
-    itungQuartile(n);
-
-
-    system("PAUSE");
+        system("PAUSE");
     return 0; 
 }
