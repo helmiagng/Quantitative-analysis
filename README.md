@@ -1,1 +1,1 @@
-Analisis quantitative menggunakan bahasa C++
+Analisis quantitative menggunakan bahasa  pemrograman C++
